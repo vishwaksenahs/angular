@@ -1,0 +1,79 @@
+
+<div class="filterStyle">
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+</mat-form-field>
+</div>
+
+<div class="mat-elevation-z8 cardStyle">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="version">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Version </th>
+      <td mat-cell *matCellDef="let row"> {{row.version}} </td>
+    </ng-container>
+
+    <!-- Progress Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+      <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.status}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="progress">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Progress </th>
+      <td mat-cell *matCellDef="let row"> <mat-progress-bar mode="determinate" [value]="row.progress"></mat-progress-bar></td>
+    </ng-container>
+
+    <!-- Color Column -->
+    <ng-container matColumnDef="start_date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> start_date </th>
+      <td mat-cell *matCellDef="let row" > {{row.start_date}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="end_date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> end_date </th>
+      <td mat-cell *matCellDef="let row" > {{row.end_date}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> description </th>
+      <td mat-cell *matCellDef="let row" > {{row.description}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>
+        <button mat-icon-button color="primary">
+          <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+        </button>
+      </mat-header-cell>
+
+      <mat-cell *matCellDef="let row; let i=index;">
+        <button mat-icon-button color="accent" (click)="startEdit(i, row.version, row.status, row.progress, row.start_date, end_date, row.description)">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+
+        <button mat-icon-button color="accent" (click)="deleteItem(i, row.version, row.status, row.start_date, end_date,row.description,row.url)">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[3, 10, 25, 100]"></mat-paginator>
+</div>
+
+
+<!-- Copyright 2019 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->
+<!-- Copyright 2019 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->
+<router-outlet></router-outlet>
